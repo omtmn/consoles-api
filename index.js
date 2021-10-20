@@ -49,9 +49,10 @@ sites.forEach((site) => {
                 articles.push({
                     title: title,
                     url: site.base + url,
-                    source: site.name
+                    source: site.name,
                 }) 
             })
+            
         })
         .catch((err) => {
             console.log({ message: err.message, stack: err.stack })
@@ -168,7 +169,7 @@ sites.forEach((site) => {
                 const url = $(this).attr('href')
                 articles.push({
                     title: title,
-                    url: url,
+                    url: site.base + url,
                     source: site.name
                 }) 
             })
