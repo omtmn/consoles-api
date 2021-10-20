@@ -159,26 +159,6 @@ sites.forEach((site) => {
         })
 })
 
-sites.forEach((site) => {
-    axios.get(site.address)
-        .then((res) => {
-            const html = res.data
-            const $ = cheerio.load(html)
-            $('a:contains("Nintendo")', html).each(function() {
-                const title = $(this).text()
-                const url = $(this).attr('href')
-                articles.push({
-                    title: title,
-                    url: site.base + url,
-                    source: site.name
-                }) 
-            })
-        })
-        .catch((err) => {
-            console.log({ message: err.message, stack: err.stack })
-        })
-})
-
 server.get('/', (req, res) => {
     res.json('Gaming news API regarding Playstation, Xbox and Nintendo. /news returns the title, url and source name')
 })
