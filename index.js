@@ -13,18 +13,30 @@ const articles = []
 const sites = [
     {
         name: 'independentUk',
-        address: 'https://www.independent.co.uk/topic/xbox'
+        address: 'https://www.independent.co.uk/topic/xbox',
+        base: 'https://www.independent.co.uk'
     }, 
     {
         name: 'independentUk',
-        address: 'https://www.independent.co.uk/topic/ps5'
+        address: 'https://www.independent.co.uk/topic/ps5',
+        base: 'https://www.independent.co.uk'
     },
     {
         name: 'gamrant',
-        address: 'https://gamerant.com/gaming/'
+        address: 'https://gamerant.com/gaming/',
+        base: 'https://gamerant.com'
+    },
+    {
+        name: 'theverge',
+        address: 'https://www.theverge.com/games',
+        base: 'https://www.theverge.com'
+    },
+    {
+        name: 'independentUk',
+        address: 'https://www.independent.co.uk/topic/nintendo',
+        base: 'https://www.independent.co.uk'
     }
 ]
-
 
 sites.forEach((site) => {
     axios.get(site.address)
@@ -32,6 +44,26 @@ sites.forEach((site) => {
             const html = res.data
             const $ = cheerio.load(html)
             $('a:contains("Xbox")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: site.base + url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("PS5")', html).each(function() {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 articles.push({
@@ -51,7 +83,87 @@ sites.forEach((site) => {
         .then((res) => {
             const html = res.data
             const $ = cheerio.load(html)
-            $('a:contains("PS5")', html).each(function() {
+            $('a:contains("Sony")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("Microsoft")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("Nintendo")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("Switch")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("Nintendo")', html).each(function() {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 articles.push({
