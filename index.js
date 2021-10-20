@@ -180,7 +180,7 @@ sites.forEach((site) => {
 })
 
 server.get('/', (req, res) => {
-    res.json('Welcome to my API')
+    res.json('Gaming news API regarding Playstation, Xbox and Nintendo. /news returns the title, url and source name')
 })
 
 server.get('/news', (req, res) => {
