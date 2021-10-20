@@ -3,77 +3,75 @@ const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
 
+dotenv.config()
+
 const PORT = process.env.PORT || 3002
 const server = express()
 
 const articles = []
 
-dotenv.config()
+const sites = [
+    {
+        name: 'independentUk',
+        address: 'https://www.independent.co.uk/topic/xbox'
+    }, 
+    {
+        name: 'independentUk',
+        address: 'https://www.independent.co.uk/topic/ps5'
+    },
+    {
+        name: 'gamrant',
+        address: 'https://gamerant.com/gaming/'
+    }
+]
+
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("Xbox")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
+
+sites.forEach((site) => {
+    axios.get(site.address)
+        .then((res) => {
+            const html = res.data
+            const $ = cheerio.load(html)
+            $('a:contains("PS5")', html).each(function() {
+                const title = $(this).text()
+                const url = $(this).attr('href')
+                articles.push({
+                    title: title,
+                    url: url,
+                    source: site.name
+                }) 
+            })
+        })
+        .catch((err) => {
+            console.log({ message: err.message, stack: err.stack })
+        })
+})
 
 server.get('/', (req, res) => {
     res.json('Welcome to my API')
 })
 
-server.get('/xbox', (req, res) => {
-    axios.get('https://www.independent.co.uk/topic/xbox')
-    .then((response) => {
-        const html = response.data
-        const $ = cheerio.load(html)
-        $('a:contains("Xbox")', html).each(function () {
-            const title = $(this).text()
-            const url = $(this).attr('href')
-            articles.push({
-                title: title,
-                url: url
-            }) 
-        })
-        res.json(articles)
-    })
-    .catch((err) => {
-        console.log({message: err.message, stack: err.stack})
-    })
-})
-
-server.get('/ps5', (req, res) => {
-    axios.get('https://www.independent.co.uk/topic/ps5')
-    .then((response) => {
-        const html = response.data
-        const $ = cheerio.load(html)
-        $('a:contains("PS5")', html).each(function () {
-            const title = $(this).text()
-            const url = $(this).attr('href')
-            articles.push({
-                title: title,
-                url: url
-            }) 
-        })
-        res.json(articles)
-    })
-    .catch((err) => {
-        console.log({message: err.message, stack: err.stack})
-    })
-})
-
-
 server.get('/news', (req, res) => {
-    axios.get('https://www.independent.co.uk/life-style/gadgets-and-tech/gaming')
-    .then((response) => {
-        const html = response.data
-        const $ = cheerio.load(html)
-        $('a:contains("Game")', html).each(function () {
-            const title = $(this).text()
-            const url = $(this).attr('href')
-            articles.push({
-                title: title,
-                url: url
-            }) 
-        })
-        res.json(articles)
-    })
-    .catch((err) => {
-        console.log({message: err.message, stack: err.stack})
-    })
+    res.json(articles)
 })
-
 
 server.listen(PORT, () => console.log(`**Server listening on port ${PORT}**`))
