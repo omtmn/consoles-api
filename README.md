@@ -13,4 +13,4 @@ https://rapidapi.com/alexaustin9816@gmail.com/api/gaming-news/
 ### News
 
 - GET /news 
-  --> `{ title: "Everything you need to know about the Xbox Series X and S", url: "https://www.independent.co.uk/life-style/gadgets-and-tech/xbox-series-x-s-stock-uk-b1256926.html", source: "independentUk" } 
+  --> `{ title: "Everything you need to know about the Xbox Series X and S", url: "Site URL HERE", source: "independentUk" } 
