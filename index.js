@@ -22,7 +22,7 @@ const sites = [
         base: 'https://www.independent.co.uk'
     },
     {
-        name: 'gamrant',
+        name: 'gamerant',
         address: 'https://gamerant.com/gaming/',
         base: 'https://gamerant.com'
     },
@@ -69,7 +69,7 @@ sites.forEach((site) => {
                 const url = $(this).attr('href')
                 articles.push({
                     title: title,
-                    url: url,
+                    url: site.base + url,
                     source: site.name
                 }) 
             })
@@ -89,7 +89,7 @@ sites.forEach((site) => {
                 const url = $(this).attr('href')
                 articles.push({
                     title: title,
-                    url: url,
+                    url: site.base + url,
                     source: site.name
                 }) 
             })
@@ -109,7 +109,7 @@ sites.forEach((site) => {
                 const url = $(this).attr('href')
                 articles.push({
                     title: title,
-                    url: url,
+                    url: site.base + url,
                     source: site.name
                 }) 
             })
@@ -129,7 +129,7 @@ sites.forEach((site) => {
                 const url = $(this).attr('href')
                 articles.push({
                     title: title,
-                    url: url,
+                    url: site.base + url,
                     source: site.name
                 }) 
             })
@@ -149,7 +149,7 @@ sites.forEach((site) => {
                 const url = $(this).attr('href')
                 articles.push({
                     title: title,
-                    url: url,
+                    url: site.base + url,
                     source: site.name
                 }) 
             })
